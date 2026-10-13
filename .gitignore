@@ -1,0 +1,12 @@
+node_modules/
+dist/
+out/
+coverage/
+*.log
+*.mp4
+*.webm
+*.mov
+.env
+.env.*
+.DS_Store
+Thumbs.db

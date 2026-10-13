@@ -1,0 +1,56 @@
+{
+  "name": "reels-factory",
+  "version": "0.1.0",
+  "description": "Turn a YAML script into a vertical screen-recorded Reel: Playwright records a real page, ffmpeg cuts it into a 1080x1920 short.",
+  "keywords": [
+    "reels",
+    "tiktok",
+    "shorts",
+    "playwright",
+    "ffmpeg",
+    "screen-recording",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "Leonardo Carnevalli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonardo-carnevalli/reels-factory.git"
+  },
+  "type": "module",
+  "bin": {
+    "reels-factory": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx src/cli.ts",
+    "example": "tsx src/cli.ts make examples/demo.reel.yaml",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "playwright": "1.64.0",
+    "yaml": "2.9.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "eslint": "10.12.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.13.0",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.2",
+    "vitest": "5.0.4"
+  }
+}
