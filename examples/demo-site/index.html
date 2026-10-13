@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Acme Tasks (demo)</title>
+    <style>
+      :root {
+        --ink: #1b1f3b;
+        --muted: #6b6f8c;
+        --accent: #ff7a59;
+        --soft: #fff4ee;
+        --line: #ebe8f2;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+        color: var(--ink);
+        background: #faf9fc;
+      }
+      header {
+        padding: 22px 20px 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 18px;
+      }
+      header svg {
+        width: 30px;
+        height: 30px;
+      }
+      main {
+        padding: 0 20px 40px;
+      }
+      h1 {
+        font-size: 32px;
+        line-height: 1.1;
+        margin: 14px 0 6px;
+        letter-spacing: -0.02em;
+      }
+      .sub {
+        color: var(--muted);
+        margin: 0 0 20px;
+      }
+      .composer {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .composer input {
+        flex: 1;
+        font: inherit;
+        padding: 14px;
+        border: 2px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+      }
+      .composer input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      button {
+        font: inherit;
+        font-weight: 700;
+        border: 0;
+        border-radius: 14px;
+        cursor: pointer;
+      }
+      #add {
+        padding: 0 20px;
+        background: var(--ink);
+        color: #fff;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        transition: opacity 0.3s;
+      }
+      li.done {
+        opacity: 0.5;
+        order: 1;
+      }
+      li.done span {
+        text-decoration: line-through;
+      }
+      .check {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 2px solid var(--muted);
+        background: #fff;
+        flex: none;
+      }
+      li.done .check {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      #plan {
+        width: 100%;
+        padding: 16px;
+        background: var(--accent);
+        color: var(--ink);
+        font-size: 17px;
+      }
+      #plan-box {
+        margin-top: 12px;
+        min-height: 64px;
+        padding: 14px;
+        border-radius: 16px;
+        background: var(--soft);
+        color: var(--muted);
+      }
+      .spinner {
+        width: 22px;
+        height: 22px;
+        border: 3px solid var(--line);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      #stats {
+        margin-top: 520px;
+      }
+      .bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        height: 180px;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+      }
+      .bars div {
+        flex: 1;
+        border-radius: 8px 8px 4px 4px;
+        background: var(--ink);
+      }
+      .bars div:last-child {
+        background: var(--accent);
+      }
+      .streak {
+        font-size: 44px;
+        font-weight: 800;
+        margin: 18px 0 4px;
+      }
+      #cookie-note {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        padding: 16px;
+        border-radius: 14px;
+        background: var(--ink);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="16" fill="#ff7a59" />
+        <path
+          d="M18 33l9 9 19-20"
+          fill="none"
+          stroke="#1b1f3b"
+          stroke-width="7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      Acme Tasks
+    </header>
+    <main>
+      <h1>Your day, sorted.</h1>
+      <p class="sub">A fictional app used to demo reels-factory.</p>
+
+      <form class="composer" id="composer">
+        <input id="new-task" placeholder="What needs doing?" autocomplete="off" />
+        <button id="add" type="submit">Add</button>
+      </form>
+
+      <ul id="tasks">
+        <li data-task="1">
+          <button class="check" aria-label="Done"></button><span>Water the plants</span>
+        </li>
+        <li data-task="2">
+          <button class="check" aria-label="Done"></button><span>Reply to Sam</span>
+        </li>
+        <li data-task="3">
+          <button class="check" aria-label="Done"></button><span>30 min walk</span>
+        </li>
+      </ul>
+
+      <button id="plan" type="button">Plan my week</button>
+      <div id="plan-box">Tap the button to spread your tasks across the week.</div>
+
+      <section id="stats">
+        <h2>This week</h2>
+        <div class="bars">
+          <div style="height: 30%"></div>
+          <div style="height: 45%"></div>
+          <div style="height: 40%"></div>
+          <div style="height: 65%"></div>
+          <div style="height: 58%"></div>
+          <div style="height: 80%"></div>
+          <div style="height: 100%"></div>
+        </div>
+        <p class="streak">7 day streak</p>
+        <p class="sub">Keep it going tomorrow.</p>
+      </section>
+    </main>
+
+    <div id="cookie-note">
+      This demo uses no cookies. This banner exists to show the hide option.
+    </div>
+
+    <script>
+      const list = document.getElementById("tasks");
+      let next = 4;
+
+      list.addEventListener("click", (event) => {
+        const check = event.target.closest(".check");
+        if (check) check.closest("li").classList.toggle("done");
+      });
+
+      document.getElementById("composer").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const input = document.getElementById("new-task");
+        const text = input.value.trim();
+        if (!text) return;
+        const item = document.createElement("li");
+        item.dataset.task = String(next++);
+        item.innerHTML = '<button class="check" aria-label="Done"></button><span></span>';
+        item.querySelector("span").textContent = text;
+        list.prepend(item);
+        input.value = "";
+        input.blur();
+      });
+
+      // A deliberately slow "request" so the script can show a speed ramp with `fit`.
+      document.getElementById("plan").addEventListener("click", () => {
+        const box = document.getElementById("plan-box");
+        box.innerHTML = '<div class="spinner"></div>';
+        setTimeout(() => {
+          box.innerHTML =
+            '<div id="plan-result"><b>Mon</b> plants, walk · <b>Tue</b> dentist · <b>Wed</b> reply to Sam</div>';
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+# Records the demo app in ./demo-site (served locally, no network needed) and edits a reel.
+# Run it with: npx tsx src/cli.ts make examples/demo.reel.yaml
+name: demo
+serve: ./demo-site
+brand: ./brand/brand.yaml
+rate: 1.1
+hide: ["#cookie-note"] # keep banners out of the shot
+
+hook:
+  kicker: New app
+  title: ["Plan your day", "in 3 taps"]
+  duration: 1.8
+
+outro:
+  kicker: Open source
+  title: ["Made with", "reels-factory"]
+  subtitle: One YAML script in, one vertical reel out.
+  cta: reels-factory make
+  duration: 3
+
+steps:
+  - goto: /
+
+  - caption:
+      title: ["Add a task", "in seconds"]
+      subtitle: Type it, tap Add, done.
+  - type: { selector: "#new-task", text: "Book the dentist" }
+  - click: "#add"
+  - wait: 600
+
+  - caption:
+      title: ["Tick it off", "with one tap"]
+      subtitle: Finished tasks drop to the bottom.
+  - click: "[data-task='1'] .check"
+  - wait: 800
+
+  - caption:
+      title: ["Plan the week", "for you"]
+      subtitle: A slow request, squeezed into one second.
+  - click: "#plan"
+  - waitFor: "#plan-result"
+    fit: 1
+  - wait: 900
+
+  - caption:
+      title: ["Watch your", "streak grow"]
+      subtitle: Stats update as you go.
+  - scroll: "#stats"
+  - wait: 1200

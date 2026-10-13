@@ -1,0 +1,13 @@
+# A neutral example brand. Copy this file, change the values, point your script at it.
+name: Acme Tasks
+logo: ./logo.svg
+colors:
+  background: "#1b1f3b" # screen scenes
+  accent: "#ff7a59" # highlighted title line, tap ripple, call to action
+  text: "#ffffff" # text on the background
+  frame: "#0d0f1f" # phone bezel
+  card: "#fff4ee" # hook and outro cards
+  cardText: "#1b1f3b" # text on the cards
+font:
+  family: Inter # falls back to the system UI font when not installed
+  # file: ./fonts/Inter-Bold.woff2  # embed a font file for identical output everywhere
